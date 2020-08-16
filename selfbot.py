@@ -37,6 +37,7 @@ class Selfbot(commands.Bot):
     def load_extensions(self):
         for extension in (
             "anim",
+            "backup",
             "crypto",
             "misc",
             "mod",

@@ -8,7 +8,7 @@ from colorama import Fore, init
 #                                                                               #
 # This is a higly dangerous and volitile module please for the love of fuck     #
 # Don't "accidentally" run shit in here then cry when you get raped by discord  #
-# or the server gets nuked for example lol. It's just no it doesn't work well   #
+# or the server gets nuked for example lol. It's just no.. it doesn't go well   #
 #                                                                               #
 # So please for the love of fucking god be CAREFUL                              #
 #                                                                               #
