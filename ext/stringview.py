@@ -1,7 +1,7 @@
 def paginate(text: str, maxlen: int):
-    '''Simple generator that paginates text.'''
+    """Simple generator that paginates text."""
     last = 0
-    for curr in range(0, len(text)+maxlen, maxlen):
+    for curr in range(0, len(text) + maxlen, maxlen):
         if last == curr:
             continue
         else:
@@ -10,9 +10,9 @@ def paginate(text: str, maxlen: int):
 
 
 def shlex_split(body):
-    '''Function that splits on spaces while retaining quoted peices of text'''
+    """Function that splits on spaces while retaining quoted peices of text"""
 
-    curr = ''
+    curr = ""
     is_quoted = False
     is_first = False
     args = []
@@ -20,40 +20,36 @@ def shlex_split(body):
     for index, char in enumerate(body):
 
         if char == '"':
-            if body[index-1] != '\\': # escapes
+            if body[index - 1] != "\\":  # escapes
                 is_quoted = True
                 is_first = False if is_first else True
-                    
+
         if is_quoted:
             curr += char
             if not is_first:
                 args.append(curr)
-                curr = ''
+                curr = ""
                 is_quoted = False
         else:
             if char.isspace():
                 args.append(curr)
-                curr = ''
+                curr = ""
             else:
                 curr += char
 
-        if index+1 == len(body):
+        if index + 1 == len(body):
             if is_first:
                 curr = curr.split()
                 args.extend(curr)
             else:
                 args.append(curr)
 
-    args = list(filter(lambda x: x.strip(), args)) # takes out spaces
+    args = list(filter(lambda x: x.strip(), args))  # takes out spaces
 
     for i, arg in enumerate(args):
-        arg = arg.replace('\\"', '"') # escapes
-        if arg.count(' '):
-            arg = arg.strip('"') # removes the quotes
+        arg = arg.replace('\\"', '"')  # escapes
+        if arg.count(" "):
+            arg = arg.strip('"')  # removes the quotes
         args[i] = arg
 
     return args
-
-
-
-

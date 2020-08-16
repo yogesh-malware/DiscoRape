@@ -5,17 +5,19 @@ from colorthief import ColorThief
 import io
 import os
 
+
 class CustomContext(commands.Context):
-    '''Custom Context class to provide utility.'''
+    """Custom Context class to provide utility."""
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def delete(self):
-        '''shortcut'''
+        """shortcut"""
         return self.message.delete()
 
     async def get_ban(self, name_or_id):
-        '''Helper function to retrieve a banned user'''
+        """Helper function to retrieve a banned user"""
         for ban in await self.guild.bans():
             if name_or_id.isdigit():
                 if ban.user.id == int(name_or_id):
@@ -24,18 +26,18 @@ class CustomContext(commands.Context):
                 return ban
 
     async def purge(self, *args, **kwargs):
-        '''Shortcut to channel.purge, preset for selfbots.'''
-        kwargs.setdefault('bulk', False)
+        """Shortcut to channel.purge, preset for selfbots."""
+        kwargs.setdefault("bulk", False)
         await self.channel.purge(*args, **kwargs)
 
     async def get_dominant_color(self, url=None, quality=10):
-        '''Returns the dominant color of an image from a url'''
-        maybe_col = os.environ.get('COLOR')
+        """Returns the dominant color of an image from a url"""
+        maybe_col = os.environ.get("COLOR")
 
         url = url or self.author.avatar_url
 
         if maybe_col:
-            raw = int(maybe_col.strip('#'), 16)
+            raw = int(maybe_col.strip("#"), 16)
             return discord.Color(value=raw)
         try:
             async with aiohttp.ClientSession() as session:
@@ -49,7 +51,7 @@ class CustomContext(commands.Context):
                 color = ColorThief(f).get_color(quality=quality)
             except:
                 return discord.Color.dark_grey()
-            
+
         return discord.Color.from_rgb(*color)
 
     async def success(self, msg=None, delete=False):
@@ -58,17 +60,17 @@ class CustomContext(commands.Context):
         if msg:
             await self.send(msg)
         else:
-            await self.message.add_reaction('✔')
+            await self.message.add_reaction("✔")
 
     async def failure(self, msg=None):
         if msg:
             await self.send(msg)
         else:
-            await self.message.add_reaction('❌')
+            await self.message.add_reaction("❌")
 
     @staticmethod
     def paginate(text: str):
-        '''Simple generator that paginates text.'''
+        """Simple generator that paginates text."""
         last = 0
         pages = []
         for curr in range(0, len(text)):
@@ -76,6 +78,6 @@ class CustomContext(commands.Context):
                 pages.append(text[last:curr])
                 last = curr
                 appd_index = curr
-        if appd_index != len(text)-1:
+        if appd_index != len(text) - 1:
             pages.append(text[last:curr])
-        return list(filter(lambda a: a != '', pages))
+        return list(filter(lambda a: a != "", pages))

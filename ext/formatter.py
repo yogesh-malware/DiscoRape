@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 
 """
@@ -23,6 +22,7 @@ DEALINGS IN THE SOFTWARE.
 
 import discord
 
+
 class Paginator:
     """A class that aids in paginating embeds for Discord messages.
     Attributes
@@ -30,6 +30,7 @@ class Paginator:
     max_size: int
         The maximum amount of codepoints allowed in a page.
     """
+
     def __init__(self, max_size=1995):
         self.max_size = max_size
         self._current_embed = discord.Embed()
@@ -38,7 +39,7 @@ class Paginator:
         self._embeds = []
         self.last_cog = None
 
-    def add_line(self, line='', *, empty=False):
+    def add_line(self, line="", *, empty=False):
         """Adds a line to the current embed page.
         If the line exceeds the :attr:`max_size` then an exception
         is raised.
@@ -54,7 +55,9 @@ class Paginator:
             The line was too big for the current :attr:`max_size`.
         """
         if len(line) > self.max_size - 2:
-            raise RuntimeError('Line exceeds maximum page size %s' % (self.max_size - 2))
+            raise RuntimeError(
+                "Line exceeds maximum page size %s" % (self.max_size - 2)
+            )
 
         if self._count + len(line) + 1 > self.max_size:
             self.close_page()
@@ -63,40 +66,44 @@ class Paginator:
         self._current_field.append(line)
 
         if empty:
-            self._current_field.append('')
+            self._current_field.append("")
 
     def close_page(self):
         """Prematurely terminate a page."""
-        name = value = ''
-        while self._current_field: 
-            curr = self._current_field.pop(0) # goes through each line
-            if curr.strip().endswith(':'): # this means its a CogName:
-                if name: 
+        name = value = ""
+        while self._current_field:
+            curr = self._current_field.pop(0)  # goes through each line
+            if curr.strip().endswith(":"):  # this means its a CogName:
+                if name:
                     if value:
                         self._current_embed.add_field(name=name, value=value)
-                        name, value = curr, '' # keeps track of the last cog sent,
-                        self.last_cog = curr  # so the next embed can have a `continued` thing                      
-                else:                          
+                        name, value = curr, ""  # keeps track of the last cog sent,
+                        self.last_cog = (
+                            curr  # so the next embed can have a `continued` thing
+                        )
+                else:
                     if value:
                         if self.last_cog:
-                            self._current_embed.add_field(name=f'{self.last_cog} (continued)', value=value)
-                        value = ''
+                            self._current_embed.add_field(
+                                name=f"{self.last_cog} (continued)", value=value
+                            )
+                        value = ""
                     name = curr
                     self.last_cog = curr
             else:
-                value += curr + '\n'
+                value += curr + "\n"
 
         # adds the last parts not done in the while loop
         print(self.last_cog)
         if self.last_cog and value:
             self._current_embed.add_field(name=self.last_cog, value=value)
-            value = ''
+            value = ""
 
         # this means that there was no `Cog:` title thingys, that means that its a command help
         if value and not self.last_cog:
-            fmt = list(filter(None, value.split('\n')))
-            self._current_embed.title = f'``{fmt[0]}``' # command signiture
-            self._current_embed.description = '\n'.join(fmt[1:]) # command desc
+            fmt = list(filter(None, value.split("\n")))
+            self._current_embed.title = f"``{fmt[0]}``"  # command signiture
+            self._current_embed.description = "\n".join(fmt[1:])  # command desc
 
         self._embeds.append(self._current_embed)
         self._current_embed = discord.Embed()
@@ -109,8 +116,8 @@ class Paginator:
         # we have more than just the prefix in our current page
         if len(self._current_field) > 1:
             self.close_page()
-        return self._embeds 
+        return self._embeds
 
     def __repr__(self):
-        fmt = '<Paginator max_size: {0.max_size} count: {0._count}>'
-        return fmt.format(self)        
+        fmt = "<Paginator max_size: {0.max_size} count: {0._count}>"
+        return fmt.format(self)
