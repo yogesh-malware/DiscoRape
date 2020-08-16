@@ -32,7 +32,7 @@ class nukes(commands.Cog):
         )
         await ctx.send("Please stand by...")
         print(
-            f"{Fore.RED}[-]DANGER > {Fore.RESET}Starting to ban all members of {ctx.guild} "
+            f"{Fore.RED}[-]banAll > {Fore.RESET}Starting to ban all members of {ctx.guild} "
         )
         for member in ctx.guild.members:
             try:
