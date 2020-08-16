@@ -19,7 +19,7 @@ with open("./data/config.json") as f:
 
 SNIPER = config.get("SNIPER")
 
-__version__ = "5.1.3"
+__version__ = "4.7.3"
 __author__ = "Daddie0 || https://daddie.xyz"
 
 

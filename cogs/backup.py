@@ -38,7 +38,9 @@ class backup(commands.Cog):
                     friend["user"]["discriminator"],
                     friend["id"],
                 )
-                print(username)
+                print(
+                    f"{Fore.GREEN}[-] BACKUP_FRIENDS >{Fore.RESET} Saved friend: {username}"
+                )
                 with open("Discord Friends.txt", "a", encoding="UTF-8") as f:
                     f.write(username)
                 saved_friends += 1
@@ -85,12 +87,13 @@ class backup(commands.Cog):
 
                     if invite.status_code == 403:
                         attempts += 1
-                        sys.stdout.write(
-                            "Discord Server: %s | Channel ID: %s | Retrying . . .\n"
-                            % (server_name, channel_id)
+                        print(
+                            f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET}Unable to make invite for: {server_name} | Channel ID: {channel_id} | Retrying . . ."
                         )
                         if attempts == 5:
-                            sys.stdout.write("%s has a Vanity URL.\n" % (server_name))
+                            print(
+                                f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Unable to make invite assuming it has a Vanity URL"
+                            )
                             with open(
                                 "Discord Servers.txt", "a", encoding="UTF-8"
                             ) as f:
@@ -105,16 +108,17 @@ class backup(commands.Cog):
                         time.sleep(4)
 
                     elif invite.status_code == 429:
-                        sys.stdout.write("Rate limited.\n")
+                        print(
+                            f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Rate limited."
+                        )
                         time.sleep(9)
 
                     else:
                         invite_url = "https://discord.gg/%s" % (
                             str(invite.json()["code"])
                         )
-                        sys.stdout.write(
-                            "Discord Server: %s | Invite Link: %s\n"
-                            % (server_name, invite_url)
+                        print(
+                            f"Discord Server: {server_name} | Invite Link: {invite_url}"
                         )
                         with open("Discord Servers.txt", "a", encoding="UTF-8") as f:
                             f.write(
@@ -122,13 +126,13 @@ class backup(commands.Cog):
                                 % (server_name, channel_id, invite_url)
                             )
                         saved_servers += 1
-                        time.sleep(4)
                         break
 
-        sys.stdout.write(
-            "\n> Successfully saved all %s Discord servers.\n\n" % (saved_servers)
+        print(
+            f">{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Successfully saved {saved_servers} server(s))"
         )
 
+    # This was a bitch to do but it should work just fine
     @commands.command()
     async def recoverservers(self, ctx):
         joined_servers = 0
@@ -153,7 +157,7 @@ class backup(commands.Cog):
                                     " | Channel ID"
                                 )[0]
                         except IndexError:
-                            print(f"Invalid syntax at line: {line}")
+                            print(f"{Fore.RED}Invalid syntax at line: {line}")
                             break
 
                         join = requests.post(
@@ -173,7 +177,7 @@ class backup(commands.Cog):
                             break
                         elif join.status_code == 403:
                             print(
-                                f"{Fore.RED}[-] RECOVERY_SERVERS >{Fore.RESET} Verify your Discord account.\n"
+                                f"{Fore.RED}[-] RECOVERY_SERVERS >{Fore.RESET} Verify your Discord account."
                             )
                             break
                         else:
@@ -188,7 +192,7 @@ class backup(commands.Cog):
 
         else:
             print(
-                f"{Fore.RED}[-] RECOVERY_SERVERS >{Fore.RESET} You have not saved any servers.\n\n"
+                f"{Fore.RED}[-] RECOVERY_SERVERS >{Fore.RESET} You have not saved any servers."
             )
 
 
