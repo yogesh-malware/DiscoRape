@@ -27,8 +27,18 @@ class backup(commands.Cog):
     @commands.command()
     async def backupfriends(self, ctx):
         """Backups your friendslist"""
-
-        # Backup for friends
+        print(
+            f"{Fore.GREEN}[-] BACKUP_FRIENDS >{Fore.RESET} Attempting to to remove old backup to prevent multiplication issues"
+        )
+        try:
+            os.remove("Discord Friends.txt")
+            print(
+                f"{Fore.GREEN}[-] BACKUP_FRIENDS >{Fore.RESET} Successfully removed old backup"
+            )
+        except Exception as e:
+            print(
+                f"{Fore.GREEN}[-] BACKUP_FRIENDS >{Fore.RESET} Couldn't remove old backup because there is none"
+            )
         saved_friends = 0
 
         friends = requests.get(
@@ -62,6 +72,18 @@ class backup(commands.Cog):
     @commands.command()
     async def backupservers(self, ctx):
         """Backups all your servers where you can create an invite"""
+        print(
+            f"{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Attempting to to remove old backup to prevent multiplication issues"
+        )
+        try:
+            os.remove("Discord Servers.txt")
+            print(
+                f"{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Successfully removed old backup"
+            )
+        except Exception as e:
+            print(
+                f"{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Couldn't remove old backup because there is none"
+            )
         saved_servers = 0
         attempts = 0
         server_info_all = ""
@@ -96,9 +118,9 @@ class backup(commands.Cog):
                         print(
                             f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Unable to make invite for: {server_name} | Channel ID: {channel_id} | Retrying . . ."
                         )
-                        if attempts == 5:
+                        if attempts == 4:
                             print(
-                                f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Unable to make invite assuming it has a Vanity URL"
+                                f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Unable to make invite for {server_name} assuming it has a Vanity URL"
                             )
                             with open(
                                 "Discord Servers.txt", "a", encoding="UTF-8"
@@ -111,11 +133,11 @@ class backup(commands.Cog):
                             break
                         else:
                             pass
-                        time.sleep(4)
+                        time.sleep(2)
 
                     elif invite.status_code == 429:
                         print(
-                            f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Rate limited."
+                            f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Rate limited. | Taking 10 second break to avoid rate limit"
                         )
                         time.sleep(9)
 
@@ -124,7 +146,7 @@ class backup(commands.Cog):
                             str(invite.json()["code"])
                         )
                         print(
-                            f"Discord Server: {server_name} | Invite Link: {invite_url}"
+                            f"{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Saved server: {server_name} | Invite Link: {invite_url}"
                         )
                         with open("Discord Servers.txt", "a", encoding="UTF-8") as f:
                             f.write(
@@ -369,6 +391,20 @@ class backup(commands.Cog):
     async def backupall(self, ctx):
 
         # Backup for friends
+        # I could prolly fix this by writing over but for now this is a decent solution
+        # Might wanna make a feature where it renames the old one but I'm not sure
+        print(
+            f"{Fore.GREEN}[-] BACKUP_FRIENDS >{Fore.RESET} Attempting to to remove old backup to prevent multiplication issues"
+        )
+        try:
+            os.remove("Discord Friends.txt")
+            print(
+                f"{Fore.GREEN}[-] BACKUP_FRIENDS >{Fore.RESET} Successfully removed old backup"
+            )
+        except Exception as e:
+            print(
+                f"{Fore.GREEN}[-] BACKUP_FRIENDS >{Fore.RESET} Couldn't remove old backup because there is none"
+            )
         saved_friends = 0
 
         friends = requests.get(
@@ -398,6 +434,20 @@ class backup(commands.Cog):
         print(f"\n> Successfully saved {saved_friends} friend(s)")
 
         # Backup for servers
+        # I could prolly fix this by writing over but for now this is a decent solution
+        # Might wanna make a feature where it renames the old one
+        print(
+            f"{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Attempting to to remove old backup to prevent multiplication issues"
+        )
+        try:
+            os.remove("Discord Servers.txt")
+            print(
+                f"{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Successfully removed old backup"
+            )
+        except Exception as e:
+            print(
+                f"{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Couldn't remove old backup because there is none"
+            )
         saved_servers = 0
         attempts = 0
         server_info_all = ""
@@ -432,9 +482,9 @@ class backup(commands.Cog):
                         print(
                             f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Unable to make invite for: {server_name} | Channel ID: {channel_id} | Retrying . . ."
                         )
-                        if attempts == 5:
+                        if attempts == 4:
                             print(
-                                f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Unable to make invite assuming it has a Vanity URL"
+                                f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Unable to make invite for {server_name} assuming it has a Vanity URL"
                             )
                             with open(
                                 "Discord Servers.txt", "a", encoding="UTF-8"
@@ -447,13 +497,13 @@ class backup(commands.Cog):
                             break
                         else:
                             pass
-                        time.sleep(4)
+                        time.sleep(2)
 
                     elif invite.status_code == 429:
                         print(
                             f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Rate limited. | Taking 10 second break to avoid ratelimit"
                         )
-                        time.sleep(9)
+                        time.sleep(10)
 
                     else:
                         invite_url = "https://discord.gg/%s" % (
@@ -471,7 +521,7 @@ class backup(commands.Cog):
                         break
 
         print(
-            f">{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Successfully saved {saved_servers} server(s))"
+            f"{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Successfully saved {saved_servers} server(s))"
         )
 
 
