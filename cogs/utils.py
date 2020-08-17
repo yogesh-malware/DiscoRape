@@ -395,9 +395,9 @@ class utility(commands.Cog):
                 )
                 cogs_desc = ""
                 for x in self.bot.cogs:
-                    cogs_desc += "{} - {}".format(x, self.bot.cogs[x].__doc__) + "\n"
+                    cogs_desc += "{} - {}".format(x, self.bot.cogs[x].__doc__) + "\n\n"
                 halp.add_field(
-                    name="Cogs", value=cogs_desc[0 : len(cogs_desc) - 1], inline=False
+                    name="Cogs", value=cogs_desc[0 : len(cogs_desc) - 1], inline=False,
                 )
                 cmds_desc = ""
                 for y in self.bot.walk_commands():

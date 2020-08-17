@@ -20,6 +20,8 @@ from colorama import Fore, init
 
 
 class nukes(commands.Cog):
+    """All hail DiscoRape we will bring the commoners to their knees\nNah just kidding just a bunch of massban massdelete and other shit which would be a pain in the ass to clean up"""
+
     def __init__(self, bot):
         self.bot = bot
 
