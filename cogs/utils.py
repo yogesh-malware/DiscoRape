@@ -380,6 +380,75 @@ class utility(commands.Cog):
         await ctx.send("Rebooting...")
         os.execv(sys.executable, ["python"] + sys.argv)
 
+    # Yes this is a shameless copypaste from github again. OK I'M LAZY PEOPLE REQUESTED SOMETHING LIKE THIS
+
+    @commands.command(pass_context=True, aliases=["h"])
+    @commands.has_permissions(add_reactions=True, embed_links=True)
+    async def halp(self, ctx, *cog):
+        """Gets all cogs and commands of mine."""
+        try:
+            if not cog:
+                """Cog listing.  What more?"""
+                halp = discord.Embed(
+                    title="Cog Listing and Uncatergorized Commands",
+                    description="Use `help *cog*` to find out more about them!\n\n(Btw the cog names must be in lowercase like 'this sentence'.)",
+                )
+                cogs_desc = ""
+                for x in self.bot.cogs:
+                    cogs_desc += "{} - {}".format(x, self.bot.cogs[x].__doc__) + "\n"
+                halp.add_field(
+                    name="Cogs", value=cogs_desc[0 : len(cogs_desc) - 1], inline=False
+                )
+                cmds_desc = ""
+                for y in self.bot.walk_commands():
+                    if not y.cog_name and not y.hidden:
+                        cmds_desc += "{} - {}".format(y.name, y.help) + "\n"
+                halp.add_field(
+                    name="Uncatergorized Commands",
+                    value=cmds_desc[0 : len(cmds_desc) - 1],
+                    inline=False,
+                )
+                await ctx.send("", embed=halp)
+            else:
+                """Helps me remind you if you pass too many args."""
+                if len(cog) > 1:
+                    halp = discord.Embed(
+                        title="Error!",
+                        description="That is way too many cogs!",
+                        color=discord.Color.red(),
+                    )
+                    await ctx.send("", embed=halp)
+                else:
+                    """Command listing within a cog."""
+                    found = False
+                    for x in self.bot.cogs:
+                        for y in cog:
+                            if x == y:
+                                halp = discord.Embed(
+                                    title=":tickets: " + cog[0] + " Command Listing",
+                                    description=self.bot.cogs[cog[0]].__doc__,
+                                )
+                                for c in self.bot.get_cog(y).get_commands():
+                                    if not c.hidden:
+                                        halp.add_field(
+                                            name=c.name, value=c.help, inline=False
+                                        )
+                                found = True
+                    if not found:
+                        """Reminds you if that cog doesn't exist."""
+                        halp = discord.Embed(
+                            title=":no_entry_sign: Error!",
+                            description='What the fuck even is "' + cog[0] + '"?',
+                            color=discord.Color.red(),
+                        )
+                    else:
+                        await ctx.message.add_reaction(emoji="✉")
+                    await ctx.send("", embed=halp)
+        except Exception as e:
+            print(
+                f"Something went wrong go to DiscoSupport to help me look into the issue\nError: {e}"
+            )
+
 
 def setup(bot):
     bot.add_cog(utility(bot))
