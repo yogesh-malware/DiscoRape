@@ -5,6 +5,7 @@ import inspect
 
 class source(commands.Cog):
     def __init__(self, bot):
+        """Legit only has one command and that is to show the source of another command"""
         self.bot = bot
 
     @commands.command()

