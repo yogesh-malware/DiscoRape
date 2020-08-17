@@ -37,6 +37,7 @@ class nukes(commands.Cog):
         for member in ctx.guild.members:
             try:
                 await member.ban()
+                print(f"{Fore.RED}[-]banAll > {Fore.RESET}Banned: {member}")
             except:
                 continue
 
