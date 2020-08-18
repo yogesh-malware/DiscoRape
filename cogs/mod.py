@@ -139,10 +139,13 @@ class mod(commands.Cog):
         user = member or ctx.message.author
         async for m in ctx.channel.history(limit = 100):
             if m.author.id == user.id:
-                await m.delete()
-                deleted += 1
-                if deleted == amount:
-                    break
+                try:
+                    await m.delete()
+                    deleted += 1
+                    if deleted == amount:
+                        break
+                except:
+                    print(f"Error while deleting message\n\n {m} Probably a system message")
 
     @clean.command(aliases = ["i"])
     async def images(self, ctx, images_to_delete: int = 10):
