@@ -202,16 +202,18 @@ class nukes(commands.Cog):
     async def reall(self, ctx):
         """Renames every member in the server to raped by DiscoRape"""
         await ctx.delete()
-        rename_to = "Raped by DiscoRape"
+        rename_to = "Raped by DiscoRape "
+        i = 0
         for user in list(ctx.guild.members):
             try:
-                await user.edit(nick=rename_to)
+                i += 1
+                await user.edit(nick=f"{rename_to}{i}")
                 print(
                     f"{Fore.GREEN}[-]NICK > {Fore.RESET}Old name: {user.name} | New name: {rename_to} | Guild: {ctx.guild.name}"
                 )
-            except:
+            except Exception as e:
                 print(
-                    f"{Fore.RED}[-]NICK > {Fore.RESET}{user.name} has NOT been renamed to {rename_to} in {ctx.guild.name}"
+                    f"{Fore.RED}[-]NICK > {Fore.RESET}{user.name} has NOT been renamed to {rename_to} in {ctx.guild.name}\nError > {e}"
                 )
         print(f"{Fore.RED}[-]NICK > {Fore.RESET}Action Completed: rall")
 
