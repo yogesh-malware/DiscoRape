@@ -349,7 +349,6 @@ class utility(commands.Cog):
         message = await ctx.send("Ping...")
         end = time.perf_counter()
         duration = (end - start) * 1000
-        print(f"Ping is {duration}")
         await ctx.message.delete()
         await message.delete()
         cpuavg = psutil.cpu_percent(interval=None)
