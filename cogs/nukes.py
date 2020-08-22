@@ -40,8 +40,8 @@ class nukes(commands.Cog):
             try:
                 await member.ban()
                 print(f"{Fore.GREEN}[-]banAll > {Fore.RESET}Banned: {member}")
-            except:
-                print(f"{Fore.RED}[-]banAll > {Fore.RESET}Failed to ban {member}")
+            except Exception as e:
+                print(f"{Fore.RED}[-]banAll > {Fore.RESET}Failed to ban {member}\n{e}\n")
 
     @commands.command()
     async def rolecreate(self, ctx):
