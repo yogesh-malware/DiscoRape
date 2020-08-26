@@ -7,6 +7,8 @@ import os
 from discord.ext import commands
 import json
 from colorama import Fore, init
+import datetime
+
 
 with open("./data/config.json") as f:
     config = json.load(f)
@@ -39,6 +41,7 @@ class backup(commands.Cog):
             print(
                 f"{Fore.GREEN}[-] BACKUP_FRIENDS >{Fore.RESET} Couldn't remove old backup because there is none"
             )
+        start = datetime.datetime.now()
         saved_friends = 0
 
         friends = requests.get(
@@ -64,8 +67,12 @@ class backup(commands.Cog):
             fixed = f.read()[:-1]
         with open("Discord Friends.txt", "w", encoding="UTF-8") as f:
             f.write(fixed)
+        elapsed = datetime.datetime.now() - start
+        elapsed = f"{elapsed.seconds}.{elapsed.microseconds}"
 
-        print(f"\n> Successfully saved {saved_friends} friend(s)")
+        print(
+            f"\n> Successfully saved {saved_friends} friend(s) in {elapsed} second(s)"
+        )
 
     # NOTE: Shameless copy paste for both of these commands got the src from a friend
 
@@ -84,6 +91,9 @@ class backup(commands.Cog):
             print(
                 f"{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Couldn't remove old backup because there is none"
             )
+
+        start = datetime.datetime.now()
+
         saved_servers = 0
         attempts = 0
         server_info_all = ""
@@ -95,7 +105,6 @@ class backup(commands.Cog):
             server_info_all += "%s|||%s\n" % (server["id"], server["name"])
 
         payload = {"max_age": "0", "max_uses": "0", "temporary": False}
-
         for server_info in server_info_all.splitlines():
             server_id = server_info.split("|||")[0]
             server_name = server_info.split("|||")[1]
@@ -133,7 +142,6 @@ class backup(commands.Cog):
                             break
                         else:
                             pass
-                        time.sleep(2)
 
                     elif invite.status_code == 429:
                         print(
@@ -155,9 +163,10 @@ class backup(commands.Cog):
                             )
                         saved_servers += 1
                         break
-
+        elapsed = datetime.datetime.now() - start
+        elapsed = f"{elapsed.seconds}.{elapsed.microseconds}"
         print(
-            f">{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Successfully saved {saved_servers} server(s))"
+            f">{Fore.GREEN}[-] BACKUP_SERVERS >{Fore.RESET} Successfully saved {saved_servers} server(s) in {elapsed} second(s)"
         )
 
     # This was a bitch to do but it should work just fine
@@ -501,7 +510,7 @@ class backup(commands.Cog):
 
                     elif invite.status_code == 429:
                         print(
-                            f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Rate limited. | Taking 10 second break to avoid ratelimit"
+                            f"{Fore.RED}[-] BACKUP_SERVERS >{Fore.RESET} Rate limited. brb lol"
                         )
                         time.sleep(10)
 

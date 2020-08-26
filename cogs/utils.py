@@ -15,6 +15,9 @@ import time
 from bs4 import BeautifulSoup
 import urllib.request
 import sys
+import psutil
+
+psutil.cpu_percent(interval=1)
 
 
 class utility(commands.Cog):
@@ -340,6 +343,29 @@ class utility(commands.Cog):
         await ctx.message.delete()
 
     @commands.command()
+    async def sysinfo(self, ctx):
+        """Gives you client system info"""
+        start = time.perf_counter()
+        message = await ctx.send("Ping...")
+        end = time.perf_counter()
+        duration = (end - start) * 1000
+        await ctx.message.delete()
+        await message.delete()
+        cpuavg = psutil.cpu_percent(interval=None)
+        mem = psutil.virtual_memory()[2]
+        durround = round(duration, 3)
+        embed = discord.Embed(
+            title="System information", description="", color=0x0062F4
+        )
+        embed.set_thumbnail(url="https://i.imgur.com/GuRAHY1.png")
+        embed.add_field(name="CPU", value=f"{cpuavg}%", inline=True)
+        embed.add_field(name="Ram", value=f"{mem}%", inline=True)
+        embed.add_field(name="Latency", value=f"{durround}ms", inline=True)
+        embed.add_field(name="OS", value=f"{sys.platform}", inline=True)
+        embed.set_footer(text="Version 2.0")
+        await ctx.send(embed=embed)
+
+    @commands.command()
     async def urban(self, ctx, message):
         """Looks up shit on urban dictionary
 
@@ -441,8 +467,6 @@ class utility(commands.Cog):
                             description='What the fuck even is "' + cog[0] + '"?',
                             color=discord.Color.red(),
                         )
-                    else:
-                        await ctx.message.add_reaction(emoji="✉")
                     await ctx.send("", embed=halp)
         except Exception as e:
             print(
