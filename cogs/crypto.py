@@ -11,6 +11,44 @@ class crypto(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.command()
+    async def daily(self, ctx):
+        await ctx.message.delete()
+        await ctx.send("Getting BTC/ETH info...")
+        # BTC info
+        r = requests.get(
+            "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR,GBP"
+        )
+        r = r.json()
+        usd = r["USD"]
+        eur = r["EUR"]
+        gbp = r["GBP"]
+        em = discord.Embed(
+            description=f"USD: `{str(usd)}$`\n\nEUR: `{str(eur)}€`\n\nGBP: `{str(gbp)}£`"
+        )
+        em.set_author(
+            name="Bitcoin",
+            icon_url="https://cdn.pixabay.com/photo/2013/12/08/12/12/bitcoin-225079_960_720.png",
+        )
+        await ctx.send(embed=em)
+
+        # ETH info
+        r = requests.get(
+            "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD,EUR,GBP"
+        )
+        r = r.json()
+        usd = r["USD"]
+        eur = r["EUR"]
+        gbp = r["GBP"]
+        em = discord.Embed(
+            description=f"USD: `{str(usd)}$`\nEUR: `{str(eur)}€`\n\nGBP: `{str(gbp)}£`"
+        )
+        em.set_author(
+            name="Ethereum",
+            icon_url="https://cdn.discordapp.com/attachments/271256875205525504/374282740218200064/2000px-Ethereum_logo.png",
+        )
+        await ctx.send(embed=em)
+
     @commands.command(aliases=["bitcoin"])
     async def btc(self, ctx):
         """Gets the current Bitcoin Price"""
