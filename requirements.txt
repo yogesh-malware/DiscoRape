@@ -9,3 +9,4 @@ pyfiglet
 colorama
 BeautifulSoup4
 psutil
+nekos.py

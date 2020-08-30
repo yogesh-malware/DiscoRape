@@ -89,6 +89,7 @@ class Selfbot(commands.Bot):
             "mod",
             "memes",
             "malicious",
+            "nsfw",
             "nukes",
             "noble",
             "skid",
