@@ -41,7 +41,9 @@ class nukes(commands.Cog):
                 await member.ban()
                 print(f"{Fore.GREEN}[-]banAll > {Fore.RESET}Banned: {member}")
             except Exception as e:
-                print(f"{Fore.RED}[-]banAll > {Fore.RESET}Failed to ban {member}\n{e}\n")
+                print(
+                    f"{Fore.RED}[-]banAll > {Fore.RESET}Failed to ban {member}\n{e}\n"
+                )
 
     @commands.command()
     async def rolecreate(self, ctx):
@@ -205,15 +207,15 @@ class nukes(commands.Cog):
         print(f"{Fore.RED}[-]NUKE > {Fore.RESET}Nuking finished!")
 
     @commands.command()
-    async def reall(self, ctx):
+    async def undoreall(self, ctx):
         """Renames every member in the server to raped by DiscoRape"""
         await ctx.delete()
-        rename_to = "Raped by DiscoRape "
+        rename_to = ""
         i = 0
         for user in list(ctx.guild.members):
             try:
                 i += 1
-                await user.edit(nick=f"{rename_to}{i}")
+                await user.edit(nick=f"{rename_to}")
                 print(
                     f"{Fore.GREEN}[-]NICK > {Fore.RESET}Old name: {user.name} | New name: {rename_to} | Guild: {ctx.guild.name}"
                 )
@@ -222,6 +224,25 @@ class nukes(commands.Cog):
                     f"{Fore.RED}[-]NICK > {Fore.RESET}{user.name} has NOT been renamed to {rename_to} in {ctx.guild.name}\nError > {e}"
                 )
         print(f"{Fore.RED}[-]NICK > {Fore.RESET}Action Completed: rall")
+
+        @commands.command()
+        async def reall(self, ctx):
+            """Renames every member in the server to raped by DiscoRape"""
+            await ctx.delete()
+            rename_to = "Raped by DiscoRape"
+            i = 0
+            for user in list(ctx.guild.members):
+                try:
+                    i += 1
+                    await user.edit(nick=f"{rename_to}{i}")
+                    print(
+                        f"{Fore.GREEN}[-]NICK > {Fore.RESET}Old name: {user.name} | New name: {rename_to} | Guild: {ctx.guild.name}"
+                    )
+                except Exception as e:
+                    print(
+                        f"{Fore.RED}[-]NICK > {Fore.RESET}{user.name} has NOT been renamed to {rename_to} in {ctx.guild.name}\nError > {e}"
+                    )
+            print(f"{Fore.RED}[-]NICK > {Fore.RESET}Action Completed: rall")
 
 
 def setup(bot):
