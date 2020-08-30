@@ -519,7 +519,7 @@ Other
     Email Verified         {verified}
 
 
-Quite possibly the shittest selfbot made by Daddie#6969```"""
+Quite possibly the shittest selfbot made by Daddie#1337```"""
                     )
 
             elif res.status_code == 401:
