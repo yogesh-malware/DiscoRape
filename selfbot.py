@@ -34,7 +34,7 @@ SNIPER = config.get("SNIPER")
 GW = config.get("GIVEAWAY")
 SLOT = config.get("SLOT")
 
-__version__ = "5.1.3"
+__version__ = "6.1.1"
 __author__ = "Daddie0 || https://daddie.xyz"
 
 # Define shit to optimize speed for nitro commands etc.. on message event
@@ -227,8 +227,7 @@ SlotSniper: {Fore.RESET}{slot}{Fore.GREEN}
 
 
 Finished start up in {Fore.RESET}{elapsed}{Fore.GREEN} second(s)
-We're ready to snipe shit
-
+We're ready to snipe shit{Fore.RESET}
 """
         )
 
@@ -324,7 +323,7 @@ We're ready to snipe shit
 
         if "GIVEAWAY" in message.content:
             if GW == "y":
-                if message.author.id == 123067977615540225:
+                if message.author.id == 123067977615540225 or 294882584201003009:
                     start = datetime.datetime.now()
                     try:
                         await message.add_reaction("🎉")
@@ -340,7 +339,7 @@ We're ready to snipe shit
                 pass
 
         if f"Congratulations <@!{self.user.id}>" in message.content:
-            if message.author.id == 123067977615540225:
+            if message.author.id == 123067977615540225 or 294882584201003009:
                 start = datetime.datetime.now()
                 print(f"\n{Fore.CYAN}[{time} - Giveaway won! 🎉🎉🎉{Fore.RESET}")
                 elapsed = datetime.datetime.now() - start
