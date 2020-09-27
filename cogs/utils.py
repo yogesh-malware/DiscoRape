@@ -366,14 +366,15 @@ class utility(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def urban(self, ctx, message):
+    async def urban(self, ctx, *, message):
         """Looks up shit on urban dictionary
 
         Note: ~~Only works with single words not sentences~~
         This is now fixed but you have to use "multi%20word%20search"
         instead of just multi word senctence i know a little gay but it works
         """
-        term = message
+        term = message.replace(" ", "%20")
+        termu = message
         url = "https://www.urbandictionary.com/define.php?term="
         url += "+" + term
         try:
@@ -381,7 +382,7 @@ class utility(commands.Cog):
             soup = BeautifulSoup(html, "html.parser")
             definition = soup.find(class_="meaning").get_text()
             embed = discord.Embed(
-                title=":mag:" + term, description=definition, color=0x0062F4
+                title=":mag:" + termu, description=definition, color=0x0062F4
             )
             embed.set_footer(
                 text="Urban Dictionary API for Discord by Daddie#1337",

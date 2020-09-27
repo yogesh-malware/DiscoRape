@@ -13,14 +13,14 @@ class nsfw(commands.Cog):
 
     @commands.command()
     async def neko(self, ctx, message):
-        """Shows a random pic of hentai u choose"""
+        """Shows hentai"""
         await ctx.delete()
         r = random.randint(0, 255)
         g = random.randint(0, 255)
         b = random.randint(0, 255)
         msg = message
         embed = discord.Embed(
-            title=":flushed:", description="", colour=discord.Colour.from_rgb(r, g, b),
+            title="<:lu_02yay:749435269337317447>", description="", colour=discord.Colour.from_rgb(r, g, b),
         )
         url = nekos.img(msg)
         embed.set_image(url=url)
@@ -31,78 +31,20 @@ class nsfw(commands.Cog):
         """Shows all options for neko"""
         await ctx.delete()
         possible = [
-            "feet",
-            "yuri",
-            "trap",
-            "futanari",
-            "hololewd",
-            "lewdkemo",
-            "solog",
-            "feetg",
-            "cum",
-            "erokemo",
-            "les",
-            "wallpaper",
-            "lewdk",
-            "ngif",
-            "tickle",
-            "lewd",
-            "feed",
-            "gecg",
-            "eroyuri",
-            "eron",
-            "cum_jpg",
-            "bj",
-            "nsfw_neko_gif",
-            "solo",
-            "kemonomimi",
-            "nsfw_avatar",
-            "gasm",
-            "poke",
-            "anal",
-            "slap",
-            "hentai",
-            "avatar",
-            "erofeet",
-            "holo",
-            "keta",
-            "blowjob",
-            "pussy",
-            "tits",
-            "holoero",
-            "lizard",
-            "pussy_jpg",
-            "pwankg",
-            "classic",
-            "kuni",
-            "waifu",
-            "pat",
-            "8ball",
-            "kiss",
-            "femdom",
-            "neko",
-            "spank",
-            "cuddle",
-            "erok",
-            "fox_girl",
-            "boobs",
-            "random_hentai_gif",
-            "smallboobs",
-            "hug",
-            "ero",
-            "smug",
-            "goose",
-            "baka",
-            "woof",
+            "**Feet** | **Yuri** | **Trap** | **Futanri** | **Hololewd** | **Lewdkemo** | **Solo** | **Feet** | **Cum** | **Erokemo** | **Les** | **Wallpaper** | **Lewd** | **Feed** | **Gecg** | **Femdom** | **Eroyuri** | **Eron** | **Blowjob** | **Kemonomimi** | **Gasm** | **Anal** | **Erok** | **Boobs** | **Smallboobs** | **Spank** | **Hentai** | **Holo** | **Keta** | **Pussy** | **Tits** | **Classic** | **Kuni** | **Waifu** | **Pat** | **Poke** | **Neko** | **Cuddle** | **Kiss** | **Baka** | **Smug**",
         ]
 
         list = ""
         for item in possible:
-            print(item)
-
             list += f"{item}\n"
-
-        await ctx.send(f"List of avialiable options.\n{list}")
+        r = random.randint(50, 255)
+        g = random.randint(50, 255)
+        b = random.randint(50, 255)
+        msg = {list}
+        embed = discord.Embed(
+            title=":flushed: options:", description=f"{list}", colour=discord.Colour.from_rgb(r, g, b),
+        )
+        await ctx.send(embed=embed)
 
 
 ### Add cog lmao
